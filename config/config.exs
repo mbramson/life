@@ -15,7 +15,10 @@ config :life, LifeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "NfGIRvFpdymmZOA5vZ4uuMHymMaSso/UnwrNAlGYRYu3Ma7aY8zzM1rlp5WxF+ZG",
   render_errors: [view: LifeWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Life.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Life.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "3xMRARn8wJEkVNwvV/2opJ6Y1Vc5aEFK"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

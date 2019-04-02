@@ -52,7 +52,8 @@ config :life, LifeWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/life_web/views/.*(ex)$},
-      ~r{lib/life_web/templates/.*(eex)$}
+      ~r{lib/life_web/templates/.*(eex)$},
+      ~r{lib/my_app_web/live/.*(ex)$}
     ]
   ]
 
