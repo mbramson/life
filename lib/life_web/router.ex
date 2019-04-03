@@ -8,7 +8,7 @@ defmodule LifeWeb.Router do
     plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :put_layout, {LiveWeb.LayoutView, :app}
+    plug :put_layout, {LifeWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -18,6 +18,7 @@ defmodule LifeWeb.Router do
   scope "/", LifeWeb do
     pipe_through :browser
 
+    live "/life", LifeLive
     get "/", PageController, :index
   end
 

@@ -10,6 +10,9 @@ use Mix.Config
 config :life,
   ecto_repos: [Life.Repo]
 
+config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
+
 # Configures the endpoint
 config :life, LifeWeb.Endpoint,
   url: [host: "localhost"],
