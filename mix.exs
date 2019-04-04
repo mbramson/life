@@ -38,6 +38,7 @@ defmodule Life.MixProject do
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_live_view, github: "phoenixframework/phoenix_live_view"},
       {:ecto_sql, "~> 3.0"},
+      {:mix_test_watch, "~> 0.6", only: :dev, runtime: false},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
