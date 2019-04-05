@@ -8,6 +8,29 @@ defmodule Life.ResolverTest do
     test "an empty grid returns an empty grid" do
       assert step([]) == []
     end
+
+    test "single dead cell remains dead" do
+      assert step([[0]]) == [[0]]
+    end
+
+    test "single live cell becomes dead" do
+      assert step([[1]]) == [[0]]
+    end
+
+    test "four live cells in square stay live" do
+      assert step([[1, 1], [1, 1]]) == [[1, 1], [1, 1]]
+    end
+
+    test "four live cells in a row result in two dying" do
+      assert step([[1, 1, 1, 1]]) == [[0, 1, 1, 0]]
+    end
+
+    # [1, 1] -> [1, 0]
+    # [1, 0]    [0, 0]
+    test "three live cells in square result in two dying" do
+      #assert step([[1, 1], [1, 0]]) == [[1, 0], [0, 0]]
+      assert step([[1, 1], [1, 0]])
+    end
   end
 
   describe "cell_alive_next_step?/2" do
