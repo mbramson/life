@@ -58,4 +58,54 @@ defmodule Life.Resolver.UnrolledGridTest do
       assert cell_to_left({1, 1, 1, 1, 1, 1}, 3, 2, 3) == 0
     end
   end
+
+  describe "cell_above/4" do
+    test "returns 0 for an empty list" do
+      assert cell_above({}, 0, 0, 0) == 0
+    end
+
+    test "returns 0 for single cell" do
+      assert cell_above({1}, 0, 1, 1) == 0
+    end
+
+    test "returns 0 if cell is in first row" do
+      assert cell_above({1, 1, 1, 1}, 1, 1, 4) == 0
+    end
+
+    test "returns 0 if cell above is 0" do
+      assert cell_above({1, 0, 1, 1}, 3, 2, 2) == 0
+    end
+
+    test "returns 1 if cell above is 1" do
+      assert cell_above({0, 1, 0, 0}, 3, 2, 2) == 1
+    end
+
+    test "returns 1 if cell above is 1 and cell is on left border" do
+      assert cell_above({1, 0, 0, 0}, 2, 2, 2) == 1
+    end
+  end
+
+  describe "cell_below/4" do
+    test "returns 0 for an empty list" do
+      assert cell_below({}, 0, 0, 0) == 0
+    end
+
+    test "returns 0 for single cell" do
+      assert cell_below({1}, 0, 1, 1) == 0
+    end
+
+    test "returns 0 if cell is in single row" do
+      assert cell_below({1, 1, 1, 1}, 0, 1, 4) == 0
+    end
+
+    test "returns 0 if cell is in last row" do
+      assert cell_below({1, 1, 1, 1}, 2, 2, 2) == 0
+      assert cell_below({1, 1, 1, 1}, 3, 2, 2) == 0
+    end
+
+    test "returns 1 if cell below is 1" do
+      assert cell_below({0, 0, 1, 0}, 0, 2, 2) == 1
+      assert cell_below({0, 0, 0, 1}, 1, 2, 2) == 1
+    end
+  end
 end

@@ -30,4 +30,22 @@ defmodule Life.Resolver.UnrolledGrid do
       elem(unrolled_grid, current_cell_number - 1)
     end
   end
+
+  def cell_above({}, _, _, _), do: 0
+  def cell_above(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number < columns do
+      0
+    else
+      elem(unrolled_grid, current_cell_number - columns)
+    end
+  end
+
+  def cell_below({}, _, _, _), do: 0
+  def cell_below(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number >= tuple_size(unrolled_grid) - columns do
+      0
+    else
+      elem(unrolled_grid, current_cell_number + columns)
+    end
+  end
 end
