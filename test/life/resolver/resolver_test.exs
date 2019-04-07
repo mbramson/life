@@ -25,10 +25,17 @@ defmodule Life.ResolverTest do
       assert step([[1, 1, 1, 1]]) == [[0, 1, 1, 0]]
     end
 
-    # [1, 1] -> [1, 0]
-    # [1, 0]    [0, 0]
+    # [1, 1] -> [1, 1]
+    # [1, 0]    [1, 1]
     test "three live cells in square result in two dying" do
-      assert step([[1, 1], [1, 0]]) == [[1, 0], [0, 0]]
+      assert step([[1, 1], [1, 0]]) == [[1, 1], [1, 1]]
+    end
+
+    test "cells with two neighbors in a line live" do
+      assert step([[0, 0, 0], [1, 1, 1], [0, 0, 0]]) ==
+        [[0, 1, 0], [0, 1, 0], [0, 1, 0]]
+      assert step([[0, 1, 0], [0, 1, 0], [0, 1, 0]]) ==
+        [[0, 0, 0], [1, 1, 1], [0, 0, 0]]
     end
 
     test "cells with two diagonal neighbors live" do

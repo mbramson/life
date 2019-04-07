@@ -58,8 +58,29 @@ defmodule Life.Resolver.UnrolledGrid do
   end
 
   def cell_above_right({}, _, _, _), do: 0
+  def cell_above_right(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number < columns or rem(current_cell_number, columns) == columns - 1 do
+      0
+    else
+      elem(unrolled_grid, current_cell_number - columns + 1)
+    end
+  end
 
   def cell_below_left({}, _, _, _), do: 0
+  def cell_below_left(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number >= tuple_size(unrolled_grid) - columns or rem(current_cell_number, columns) == 0 do
+      0
+    else
+      elem(unrolled_grid, current_cell_number + columns - 1)
+    end
+  end
 
   def cell_below_right({}, _, _, _), do: 0
+  def cell_below_right(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number >= tuple_size(unrolled_grid) - columns or rem(current_cell_number, columns) == columns - 1 do
+      0
+    else
+      elem(unrolled_grid, current_cell_number + columns + 1)
+    end
+  end
 end

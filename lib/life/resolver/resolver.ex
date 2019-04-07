@@ -34,7 +34,11 @@ defmodule Life.Resolver do
       UnrolledGrid.cell_to_left(unrolled_grid, current_cell, rows, columns) +
       UnrolledGrid.cell_to_right(unrolled_grid, current_cell, rows, columns) +
       UnrolledGrid.cell_above(unrolled_grid, current_cell, rows, columns) +
-      UnrolledGrid.cell_below(unrolled_grid, current_cell, rows, columns)
+      UnrolledGrid.cell_below(unrolled_grid, current_cell, rows, columns) +
+      UnrolledGrid.cell_above_left(unrolled_grid, current_cell, rows, columns) +
+      UnrolledGrid.cell_above_right(unrolled_grid, current_cell, rows, columns) +
+      UnrolledGrid.cell_below_left(unrolled_grid, current_cell, rows, columns) +
+      UnrolledGrid.cell_below_right(unrolled_grid, current_cell, rows, columns)
 
     next_step_cell_value =
       if cell_alive_next_step?(current_cell_value, neighbors) do
