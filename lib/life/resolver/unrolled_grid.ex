@@ -24,7 +24,6 @@ defmodule Life.Resolver.UnrolledGrid do
   def cell_to_left({}, _, _, _), do: 0
   def cell_to_left(unrolled_grid, current_cell_number, _rows, columns) do
     if rem(current_cell_number, columns) == 0 do
-      # cell is on left border
       0
     else
       elem(unrolled_grid, current_cell_number - 1)
@@ -48,4 +47,19 @@ defmodule Life.Resolver.UnrolledGrid do
       elem(unrolled_grid, current_cell_number + columns)
     end
   end
+
+  def cell_above_left({}, _, _, _), do: 0
+  def cell_above_left(unrolled_grid, current_cell_number, _rows, columns) do
+    if current_cell_number < columns or rem(current_cell_number, columns) == 0 do
+      0
+    else
+      elem(unrolled_grid, current_cell_number - columns - 1)
+    end
+  end
+
+  def cell_above_right({}, _, _, _), do: 0
+
+  def cell_below_left({}, _, _, _), do: 0
+
+  def cell_below_right({}, _, _, _), do: 0
 end
