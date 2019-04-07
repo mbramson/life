@@ -6,16 +6,18 @@ defmodule LifeWeb.LifeLive do
   def render(assigns) do
     ~L"""
     <h1>Conway's Game of Life!</h1>
-    <div 
+    <div
       class="life-grid-container"
       style="
         grid-template-columns: repeat(<%= @columns %>, 1fr);
         grid-template-rows: repeat(<%= @rows %>, 1fr);
       "
     >
-      <%= for row <- @grid do %>
-        <%= for cell <- row do %>
-          <div class="life-grid-item"><%= cell %></div>
+      <%= for {row, row_num} <- Enum.with_index(@grid) do %>
+        <%= for {cell, col_num} <- Enum.with_index(row) do %>
+          <div phx-click="toggle_cell" phx-value="<%= "#{row_num} #{col_num}" %>" class="life-grid-item">
+            <%= cell %>
+          </div>
         <% end %>
       <% end %>
     </div>
@@ -61,18 +63,41 @@ defmodule LifeWeb.LifeLive do
 
     row = List.duplicate(0, columns)
     grid = List.duplicate(row, rows)
-    
+
     assign(socket, grid: grid)
   end
 
   # LiveView Callbacks
-  
+
   def handle_event("resolve_step", _payload, socket) do
     grid = socket.assigns[:grid]
     new_grid = Resolver.step(grid)
     {:noreply, assign(socket, grid: new_grid)}
   end
-  
+
+  def handle_event("toggle_cell", payload, socket) do
+    [row_index, column_index] = String.split(payload)
+
+    {row_index, _} = Integer.parse(row_index)
+    {column_index, _} = Integer.parse(column_index)
+
+    grid = socket.assigns[:grid]
+
+    current_row = grid
+                  |> Enum.at(row_index)
+
+    current_cell_value = current_row
+                         |> Enum.at(column_index)
+
+    new_cell_value = opposite_cell_value(current_cell_value)
+
+    new_row = List.replace_at(current_row, column_index, new_cell_value)
+
+    new_grid = List.replace_at(grid, row_index, new_row)
+
+    {:noreply, assign(socket, grid: new_grid)}
+  end
+
   def handle_event("less_rows", _payload, socket) do
     rows = socket.assigns[:rows]
     new_rows = rows |> subtract_one_with_floor
@@ -112,6 +137,9 @@ defmodule LifeWeb.LifeLive do
     new_grid = Enum.map(grid, fn row -> row ++ [0] end)
     {:noreply, assign(socket, columns: new_columns, grid: new_grid)}
   end
+
+  defp opposite_cell_value(0), do: 1
+  defp opposite_cell_value(1), do: 0
 
   defp subtract_one_with_floor(1), do: 1
   defp subtract_one_with_floor(integer), do: integer - 1
