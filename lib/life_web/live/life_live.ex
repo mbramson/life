@@ -15,9 +15,13 @@ defmodule LifeWeb.LifeLive do
     >
       <%= for {row, row_num} <- Enum.with_index(@grid) do %>
         <%= for {cell, col_num} <- Enum.with_index(row) do %>
-          <div phx-click="toggle_cell" phx-value="<%= "#{row_num} #{col_num}" %>" class="life-grid-item">
-            <%= cell %>
-          </div>
+          <%= if cell == 1 do %>
+            <div phx-click="toggle_cell" phx-value="<%= "#{row_num} #{col_num}" %>" class="life-grid-item blue">
+            </div>
+          <% else %>
+            <div phx-click="toggle_cell" phx-value="<%= "#{row_num} #{col_num}" %>" class="life-grid-item white">
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -42,8 +46,8 @@ defmodule LifeWeb.LifeLive do
   def mount(_session, socket) do
     initialized_socket =
       socket
-      |> assign_rows(6)
-      |> assign_columns(6)
+      |> assign_rows(15)
+      |> assign_columns(30)
       |> assign_initial_grid()
 
     {:ok, initialized_socket}
